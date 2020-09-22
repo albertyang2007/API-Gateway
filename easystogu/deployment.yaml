@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easystogu-wildjboss-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: easystogu-app
+  template:
+    metadata:
+      labels:
+        app: easystogu-app
+    spec:
+      containers:
+      - name: easystogu-wildflyjboss-with-ear
+        image: easystogu-wildflyjboss-with-ear:2.0.0-snapshot 
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+          - name: jdbc.url
+            valueFrom:
+              configMapKeyRef:
+                name: easystogu-configmap
+                key: jdbc.url
+          - name: jdbc.user
+            valueFrom:
+              configMapKeyRef:
+                name: easystogu-configmap
+                key: jdbc.user
+          - name: jdbc.password
+            valueFrom:
+              configMapKeyRef:
+                name: easystogu-configmap
+                key: jdbc.password
+          - name: jdbc.maxActive
+            valueFrom:
+              configMapKeyRef:
+                name: easystogu-configmap
+                key: jdbc.maxActive
+          - name: jdbc.maxIdle
+            valueFrom:
+              configMapKeyRef:
+                name: easystogu-configmap
+                key: jdbc.maxIdle
+

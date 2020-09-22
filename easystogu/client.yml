@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: easystogu-client-curl
+spec:
+  containers:
+  - name: curl
+    image: appropriate/curl
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/sh"]
+    args: ["-c","curl easystogu-service:8080/portal/home/ "]
