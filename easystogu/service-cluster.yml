@@ -1,7 +1,9 @@
+---
+# define a cluster service name for easystogu js react 
 kind: Service
 apiVersion: v1
 metadata:
-  name: easystogu-service
+  name: easystogu-cluster
 spec:
   selector:
     app: easystogu-app
