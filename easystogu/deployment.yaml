@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: easystogu-wildflyjboss-with-ear
-        image: easystogu-wildflyjboss-with-ear:2.0.0-snapshot 
+        image: eyaweiw.cn:5000/easystogu-wildflyjboss-with-ear:2.0.0-snapshot 
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
