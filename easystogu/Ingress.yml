@@ -1,0 +1,18 @@
+---
+# Define a 'Ingress' To Expose easystogu for outside
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: easystogu-ingress
+spec:
+  backend:
+    serviceName: easystogu-cluster
+    servicePort: 8080
+  rules:
+  - host: jboss.easystogu.cn
+    http:
+      paths: 
+      - backend:
+          serviceName: easystogu-cluster
+          servicePort: 8080
+
