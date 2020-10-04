@@ -12,7 +12,7 @@ spec:
       http:
         paths: 
           - backend:
-              serviceName: easystogu-cluster
+              serviceName: easystogu-portal
               servicePort: 8080
             path: /
 

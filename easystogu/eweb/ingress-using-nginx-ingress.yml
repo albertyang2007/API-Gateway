@@ -1,0 +1,19 @@
+---
+# Define a 'Ingress' To Expose easystogu for outside
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: easystogu-eweb-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx 
+spec:
+  rules:
+    - host: easystogu-eweb.cn
+      http:
+        paths: 
+          - backend:
+              serviceName: easystogu-eweb
+              servicePort: 8080
+            path: /
+
+

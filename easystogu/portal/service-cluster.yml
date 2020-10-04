@@ -3,10 +3,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: easystogu-cluster
+  name: easystogu-portal
 spec:
   selector:
-    app: easystogu-app
+    app: easystogu-portal
   ports:
   - protocol: TCP
     port: 8080

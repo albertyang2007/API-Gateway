@@ -1,4 +1,4 @@
-This is a stock price exposure and analysic project, using wildfly and postgres, cassandra and deploy in k8s.
+This is easystogu portal springboot docker k8s deployment.
 
 configMap for easystogu from application.properties:
 kubectl create configmap easystogu-configmap --from-env-file=./application.properties
@@ -7,7 +7,8 @@ kubectl describe configmap easystogu-configmap
 kubectl apply -f deployment.yaml
 
 to see the server log for pod:
-kubectl exec -i -t easystogu-wildjboss-deployment-564bb66cff-5gp7p -- /bin/bash
+kubectl exec -i -t easystogu-portal-6d66556fc4-h6hqn -- tail -200 /home/eyaweiw/easystogu/serverlog/server.log
+
 
 kubectl apply -f service-nodeport.yml 
 kubectl apply -f service-loadbalancer.yml 

@@ -1,0 +1,13 @@
+---
+# define a cluster service name for easystogu js react 
+kind: Service
+apiVersion: v1
+metadata:
+  name: easystogu-eweb
+spec:
+  selector:
+    app: easystogu-eweb
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
