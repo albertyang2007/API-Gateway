@@ -1,0 +1,18 @@
+---
+# Define a 'Service' To Expose postgres to Other Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: easystogu-scheduled-nodeport
+  labels:
+    app: easystogu-scheduled
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30008
+      protocol: TCP
+  selector:
+    app: easystogu-scheduled
+

@@ -1,0 +1,13 @@
+---
+# define a cluster service name for easystogu js react 
+kind: Service
+apiVersion: v1
+metadata:
+  name: easystogu-scheduled
+spec:
+  selector:
+    app: easystogu-scheduled
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080

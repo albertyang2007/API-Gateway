@@ -1,0 +1,27 @@
+this is clone from github https://github.com/lwolf/stolon-chart and modify the yaml to adapt to k8s 1.18.8
+
+install the helm chart:
+helm install ./stolon/ --name postgresql
+
+and apply the service-nodeport.yml
+kubectl apply -f service-nodeport.yml
+
+The hardcode admin user and password is: postgres and postgres,  they are set tin values.yml
+
+To get superuser random password run:
+PGPASSWORD=$(kubectl get secret postgresql-stolon -o jsonpath="{.data.pg_su_password}" | base64 --decode; echo)
+    
+echo $PGPASSWORD
+U91zUsE6SD2bZqDuKUHwjeEPY24SLh8mdMZ7ArdA
+
+access postgresql:
+psql --host postgresql-stolon-proxy  --port 5432 postgres -U postgres --password
+
+or login one of the postgresql keeper:
+kubectl exec --stdin --tty postgresql-stolon-keeper-0 -- /bin/bash
+
+Delete the helm chart:
+helm del --purge postgresql
+kubectl delete -f service-nodeport.yml
+
+now the pending issue: psql can not access the postgres!!!

@@ -11,6 +11,7 @@ spec:
   selector: # postgres Pod Should contain same labels
     matchLabels:
       app: postgres
+  replicas: 1 
   strategy:
     type: Recreate
   template:

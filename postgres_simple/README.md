@@ -1,11 +1,15 @@
-A simple postgres k8s deployment for easystogu project.
+A single postgres k8s deployment for easystogu project.
+It is a non cluster postgres.
 
 k8s deploy steps:
-kubectl apply -f postgres-storage.yml
-kubectl apply -f postgres-configmap.yml
-kubectl apply -f postgres-deployment.yml
-kubectl apply -f postgres-service-cluster.yml
-kubectl apply -f postgres-service-nodeport.yml
+kubectl apply -f storage.yml
+kubectl apply -f configmap.yml
+kubectl apply -f deployment.yml
+kubectl apply -f service-cluster.yml
+kubectl apply -f service-nodeport.yml
+
+The easy way to login postgres is access by nodePort in k8smaster:
+psql -h localhost -U postgres --password -p 30001 postgres
 
 to find the pod id:
 [root@k8smaster postgres_simple]# kubectl get pod | grep postgres
@@ -42,9 +46,6 @@ login the postgres:
 another way to login the postgres in k8snode thru the nodeport IP:
 login k8snode first:
 #psql -h 10.96.119.28 -U postgres --password -p 5432 postgres
-
-or use nodeport mapping to login postgres in k8snode:
-#psql -h localhost -U postgresn --password -p 30001 postgres
 
 
 

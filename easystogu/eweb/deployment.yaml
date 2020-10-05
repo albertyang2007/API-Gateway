@@ -15,7 +15,7 @@ spec:
       containers:
       - name: easystogu-eweb
         image: eyaweiw.cn:5000/easystogu-eweb:2.0.0-snapshot 
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - name: http
           containerPort: 8080

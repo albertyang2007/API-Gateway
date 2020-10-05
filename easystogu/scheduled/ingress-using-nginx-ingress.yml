@@ -8,11 +8,11 @@ metadata:
     kubernetes.io/ingress.class: nginx 
 spec:
   rules:
-    - host: easystogu-portal.cn
+    - host: easystogu-scheduled.cn
       http:
         paths: 
           - backend:
-              serviceName: easystogu-portal
+              serviceName: easystogu-scheduled
               servicePort: 8080
             path: /
 
