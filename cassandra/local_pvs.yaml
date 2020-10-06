@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cassandra-data-a
+  labels:
+    type: local
+    app: cassandra
+spec:
+  capacity:
+    storage: 30Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/cass/cassandra-data-a
+  persistentVolumeReclaimPolicy: Recycle
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cassandra-data-b
+  labels:
+    type: local
+    app: cassandra
+spec:
+  capacity:
+    storage: 30Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/cass/cassandra-data-b
+  persistentVolumeReclaimPolicy: Recycle
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cassandra-data-c
+  labels:
+    type: local
+    app: cassandra
+spec:
+  capacity:
+    storage: 30Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/cass/cassandra-data-c
+  persistentVolumeReclaimPolicy: Recycle
