@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: easystogu-portal
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: easystogu-portal
