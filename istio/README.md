@@ -5,6 +5,9 @@ go to https://github.com/istio/istio/releases and download the istio 1.7.4 versi
 unzip it and move the ctl to:
 sudo istioctl /usr/local/bin
 
+I had modify the docker hub to my eyaweiw.cn:5000 for all charts configuration, pls check the yaml files under charts
+
+refer to tips:
 https://www.jianshu.com/p/973147d3f2b5
 
 1. Apply a default Istio installation
