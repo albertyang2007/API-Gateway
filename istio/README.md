@@ -90,4 +90,24 @@ http://192.168.56.203:31349/productpage
 
 here the INGRESS_HOST is the k8snode3 IP address, and port is got from ingress gateway service.
 
+install the Kiali dashboard, along with Prometheus, Grafana, and Jaeger:
+kubectl apply -f samples/addons
 
+access kiali:
+istioctl dashboard kiali
+
+access prometheus:
+istioctl dashboard prometheus
+
+apply the default destination rule:
+kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+
+apply the different virtual service just for test:
+kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
+
+kubectl get destinationrules -o yaml
+
+cleanup the bookinfo:
+samples/bookinfo/platform/kube/cleanup.sh
+
+========================================================
