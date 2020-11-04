@@ -15,6 +15,10 @@ https://istio.io/latest/docs/setup/getting-started/#download
 istioctl install 
 or specify the profile:
 istioctl install --set profile=demo
+or allow all outgoing traffic without deny:
+istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
+or to control the outoging traffic with register policy:
+istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
 
 Detected that your cluster does not support third party JWT authentication. Falling back to less secure first party JWT. See https://istio.io/docs/ops/best-practices/security/#configure-third-party-service-account-tokens for details.
 Istio core installed                                                                                                              
@@ -45,6 +49,8 @@ kubectl delete ns istio-system
 
 
 ===========================install the bookinfo example istio demo===========================
+refer to: https://istio.io/latest/docs/setup/getting-started/
+
 download istio 1.7.4 and install:
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.7.4 TARGET_ARCH=x86_64 sh - 
 cd istio-1.7.4
@@ -99,6 +105,11 @@ istioctl dashboard kiali
 access prometheus:
 istioctl dashboard prometheus
 
+access grafana:
+istioctl dashboard grafana
+http://localhost:3000/dashboard/db/istio-mesh-dashboard 
+http://localhost:3000/dashboard/db/istio-workload-dashboard 
+
 apply the default destination rule:
 kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
 
@@ -110,4 +121,19 @@ kubectl get destinationrules -o yaml
 cleanup the bookinfo:
 samples/bookinfo/platform/kube/cleanup.sh
 
-========================================================
+===========================bookinfo example end=============================
+
+===========================sleep example start==============================
+refer to: https://istio.io/latest/docs/tasks/traffic-management/egress/egress-control/
+
+kubectl apply -f samples/sleep/sleep.yaml
+
+
+===========================sleep example end================================
+
+
+
+
+
+
+
