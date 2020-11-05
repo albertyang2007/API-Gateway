@@ -34,6 +34,9 @@ to enable the istio auto inject envoy for namespace:
 kubectl label namespace default istio-injection=enabled
 kubectl label namespace eyaweiw istio-injection=enabled
 
+to inject the envoy for existing deployment:
+kubectl apply -f <(istioctl kube-inject -f ./deployment.yml)
+
 2.check  Istio
 kubectl get crd|grep istio
 kubectl get all -n istio-operator

@@ -13,6 +13,10 @@ check status of the node tools:
 kubectl exec -ti cassandra-0 -- nodetool status
 kubectl exec -ti cassandra-0 -- /bin/bash
 
+if the cassandra cluster status is not correct, pls check the docker logs k8s_cassandra_pod_id
+for the issue of 'unable to gossip with any seeds', pls make sure the istio outbound traffic is allow any
+istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
+
 How to login cqlsh:
 kubectl exec -ti cassandra-0 -- cqlsh
 
