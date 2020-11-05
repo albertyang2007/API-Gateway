@@ -5,7 +5,7 @@ metadata:
   name: easystogu-portal
 spec:
   hosts:
-  - "*"
+  - easystogu-portal
   gateways:
   - easystogu-portal-gateway
   http:
