@@ -1,0 +1,11 @@
+##easystogu DestinationRule
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: easystogu-portal
+spec:
+  host: easystogu-portals
+  subsets:
+  - name: v2
+    labels:
+      version: v2
