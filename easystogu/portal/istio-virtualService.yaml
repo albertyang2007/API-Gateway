@@ -9,11 +9,7 @@ spec:
   gateways:
   - easystogu-portal-gateway
   http:
-  - name: "easystogu-portal-v2-routes"
-  - match:
-    - uri:
-        prefix: /portal
-    route:
+  - route:
     - destination:
         host: easystogu-portal
         subset: v2
