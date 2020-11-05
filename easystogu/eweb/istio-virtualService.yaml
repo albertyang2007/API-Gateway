@@ -1,0 +1,17 @@
+##easystogu VirtualService
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: easystogu-eweb
+spec:
+  hosts:
+  - easystogu-eweb
+  gateways:
+  - easystogu-eweb-gateway
+  http:
+  - route:
+    - destination:
+        host: easystogu-eweb
+        subset: v2
+        port:
+          number: 8080

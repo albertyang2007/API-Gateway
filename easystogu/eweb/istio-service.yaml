@@ -1,0 +1,14 @@
+##easystogu service
+apiVersion: v1
+kind: Service
+metadata:
+  name: easystogu-eweb
+  labels:
+    app: easystogu-eweb
+    service: easystogu-eweb
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: easystogu-eweb

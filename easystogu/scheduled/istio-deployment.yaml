@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easystogu-scheduled
+  labels:
+    app: easystogu-scheduled
+    version: v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: easystogu-scheduled
+  template:
+    metadata:
+      labels:
+        app: easystogu-scheduled
+        version: v2
+    spec:
+      containers:
+      - name: easystogu-scheduled
+        image: eyaweiw.cn:5000/easystogu-scheduled:2.0.0-snapshot 
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: easystogu-configmap

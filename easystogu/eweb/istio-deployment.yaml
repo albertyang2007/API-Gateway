@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easystogu-eweb
+  labels:
+    app: easystogu-eweb
+    version: v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: easystogu-eweb
+  template:
+    metadata:
+      labels:
+        app: easystogu-eweb
+        version: v2
+    spec:
+      containers:
+      - name: easystogu-eweb
+        image: eyaweiw.cn:5000/easystogu-eweb:2.0.0-snapshot 
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: easystogu-configmap

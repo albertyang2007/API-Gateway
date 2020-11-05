@@ -2,9 +2,9 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: easystogu-portal
+  name: easystogu-scheduled
 spec:
-  host: easystogu-portal
+  host: easystogu-scheduled
   subsets:
   - name: v2
     labels:
