@@ -5,13 +5,15 @@ metadata:
   name: easystogu-scheduled
 spec:
   hosts:
-  - easystogu-scheduled
+  - "*"
   gateways:
-  - easystogu-scheduled-gateway
+  - bookinfo-gateway
   http:
-  - route:
+  - match:
+    - uri:
+        exact: /scheduled
+    route:
     - destination:
         host: easystogu-scheduled
-        subset: v2
         port:
           number: 8080

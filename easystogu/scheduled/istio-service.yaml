@@ -5,7 +5,6 @@ metadata:
   name: easystogu-scheduled
   labels:
     app: easystogu-scheduled
-    service: easystogu-scheduled
 spec:
   ports:
   - port: 8080
