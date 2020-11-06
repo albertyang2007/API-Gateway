@@ -7,7 +7,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - bookinfo-gateway
+  - my-ingress-istio-gateway
   http:
   - match:
     - uri:
