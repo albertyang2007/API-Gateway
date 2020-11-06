@@ -7,11 +7,11 @@ spec:
   hosts:
   - "*"
   gateways:
-  - easystogu-eweb-gateway
+  - bookinfo-gateway
   http:
   - match:
     - uri:
-        exact: /easystogu-eweb
+        exact: /eweb
     route:
     - destination:
         host: easystogu-eweb
