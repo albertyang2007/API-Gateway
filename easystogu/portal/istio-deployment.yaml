@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: easystogu-portal
+  name: easystogu-portal-v2
   labels:
-    app: easystogu-portal
     version: v2
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: easystogu-portal
+      version: v2
   template:
     metadata:
       labels:

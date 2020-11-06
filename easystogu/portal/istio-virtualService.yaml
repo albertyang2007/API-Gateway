@@ -5,13 +5,15 @@ metadata:
   name: easystogu-portal
 spec:
   hosts:
-  - easystogu-portal
+  - "*"
   gateways:
   - easystogu-portal-gateway
   http:
-  - route:
+  - match:
+    - uri:
+        exact: /easystogu-portal
+    route:
     - destination:
         host: easystogu-portal
-        subset: v2
         port:
           number: 8080
