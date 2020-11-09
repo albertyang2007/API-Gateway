@@ -1,0 +1,18 @@
+##postgres VirtualService
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: postgres-cluster
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - my-ingress-istio-gateway
+  tcp:
+  - match:
+    - port: 5432
+    route:
+    - destination:
+        host: postgres-cluster
+        port:
+          number: 5432

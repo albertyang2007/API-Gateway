@@ -13,3 +13,9 @@ spec:
       protocol: HTTP
     hosts:
     - "*"
+  - port:
+      number: 5432
+      name: postgres-tcp
+      protocol: TCP
+    hosts:
+    - "*" 
