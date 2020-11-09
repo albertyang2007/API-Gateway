@@ -11,7 +11,7 @@ spec:
   http:
   - match:
     - uri:
-        exact: /eweb
+        prefix: /eweb
     route:
     - destination:
         host: easystogu-eweb

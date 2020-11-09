@@ -11,7 +11,7 @@ spec:
   http:
   - match:
     - uri:
-        exact: /portal
+        prefix: /portal
     route:
     - destination:
         host: easystogu-portal

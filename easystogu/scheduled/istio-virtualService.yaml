@@ -5,13 +5,15 @@ metadata:
   name: easystogu-scheduled
 spec:
   hosts:
-  - "*"
+  - "*" 
   gateways:
   - my-ingress-istio-gateway
   http:
   - match:
     - uri:
-        exact: /scheduled
+        prefix: /scheduled/health
+    rewrite:
+      uri: /health
     route:
     - destination:
         host: easystogu-scheduled
