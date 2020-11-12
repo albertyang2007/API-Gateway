@@ -1,0 +1,17 @@
+https://github.com/bitnami/charts/tree/master/bitnami/redis/
+
+to git clone the bitnami from github.
+
+Here in my k8s env, using the no persistence redis. Use the sentinel for redis.
+The password to access the redis is 'password'
+
+
+to install redis helm :
+cd bitnami/redis
+helm install --name redis -f values.yaml ./
+
+to list the redis helm:
+helm ls --all redis
+
+to delete the redis helm:
+helm del --purge redis
