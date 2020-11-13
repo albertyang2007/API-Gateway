@@ -1,0 +1,14 @@
+to git clone the bitnami from github.
+
+to install metallb helm :
+cd bitnami/metallb
+helm install metallb bitnami/metallb --values values.yaml
+
+To show the helm status:
+helm get manifest metallb |kubectl get  -f -
+
+to list the metallb helm:
+helm ls --all metallb
+
+to delete the metallb helm:
+helm delete metallb

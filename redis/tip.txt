@@ -10,6 +10,11 @@ to install redis helm :
 cd bitnami/redis
 helm install --name redis -f values.yaml ./
 
+to access redis:
+kubectl exec -it redis-node-0 /bin/bash
+redis-cli --pass password
+keys *
+
 to list the redis helm:
 helm ls --all redis
 
