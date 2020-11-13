@@ -1,0 +1,18 @@
+how to install the virtual addons to support file shared in virtual box host:
+
+refer to : https://www.linuxuprising.com/2019/01/manual-virtualbox-guest-additions.html
+refer to : https://www.linuxuprising.com/2019/01/manual-virtualbox-guest-additions.html
+
+download the virtual box addons: https://download.virtualbox.org/virtualbox/6.1.16/
+
+dnf update kernel*
+yum install kernel-headers
+dnf install elfutils-libelf-devel
+dnf install gcc automake make kernel-headers kernel-devel
+
+cd VBoxGuestAdditions_6.1.16
+./VBoxLinuxAdditions.run
+sudo usermod -aG vboxsf $USER
+
+mount -t vboxsf lpv1 ./test
+mount -l
