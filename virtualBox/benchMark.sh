@@ -26,7 +26,7 @@ echo "tar create time: "$((end_seconds-start_seconds))"s"
 
 starttime=`date +'%Y-%m-%d %H:%M:%S'`
 
-rm -r ./rawData/
+rm -r ./rawData/ -f
 
 endtime=`date +'%Y-%m-%d %H:%M:%S'`
 start_seconds=$(date --date="$starttime" +%s);
@@ -37,7 +37,8 @@ echo "delete time: "$((end_seconds-start_seconds))"s"
 starttime=`date +'%Y-%m-%d %H:%M:%S'`
 
 tar -zxvf rawData.tar ./rawData/ > test.log
-rm rawData.tar
+rm rawData.tar -f
+rm test.log -f
 
 endtime=`date +'%Y-%m-%d %H:%M:%S'`
 start_seconds=$(date --date="$starttime" +%s);
