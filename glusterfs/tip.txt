@@ -1,0 +1,46 @@
+tips for mount the disk from client from server.
+
+gluster server: Ubuntu 20.04 HP 400 G5 DM
+gluster client: CentOS 8 k8snode1,k8snode2,k8snode3
+
+===================server side====================
+On Ubuntu 20.04 install gluster server:
+apt -y install glusterfs-server
+systemctl enable --now glusterd
+systemctl status glusterd
+gluster --version
+gluster status
+gluster peer status
+
+The UUID afb3ec8e-cd88-4a22-ad6e-fcc236bc6b33 is UUID of a mount disk.
+cd /mnt/afb3ec8e-cd88-4a22-ad6e-fcc236bc6b33/
+mkdir lpv1
+mkdir lpv2
+mkdir lpv3
+
+gluster volume create local_pv1 transport tcp eyaweiw.cn:/mnt/afb3ec8e-cd88-4a22-ad6e-fcc236bc6b33/lpv1
+gluster volume create local_pv2 transport tcp eyaweiw.cn:/mnt/afb3ec8e-cd88-4a22-ad6e-fcc236bc6b33/lpv2
+gluster volume create local_pv3 transport tcp eyaweiw.cn:/mnt/afb3ec8e-cd88-4a22-ad6e-fcc236bc6b33/lpv3
+gluster volume start local_pv1
+gluster volume start local_pv2
+gluster volume start local_pv3
+gluster volume info
+
+
+===================client side====================
+On CentOS8 k8snode1:
+yum install glusterfs-client
+mount -t glusterfs eyaweiw.cn:/local_pv1 /home/eyaweiw/mount_pv
+mlunt -l
+mount -l | grep pv
+df -hT
+df -hT | grep eyaweiw
+
+#edit /etc/fstab
+#auto mount glusterfs from host
+eyaweiw.cn:/local_pv1 /home/eyaweiw/mount_pv glusterfs defaults,_netdev,noauto,x-systemd.automount 0 0
+
+umount it:
+umount -l /home/eyaweiw/mount_pv
+
+do this step for other k8snode, pls make sure they use different local_pv
