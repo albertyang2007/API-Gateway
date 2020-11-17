@@ -1,0 +1,36 @@
+https://github.com/bitnami/charts/tree/master/bitnami/zookeeper
+to git clone the bitnami from github.
+
+not use the persistece for zookeeper.
+
+to install zookeeper helm :
+cd bitnami/zookeeper
+helm install zookeeper bitnami/zookeeper --values values.yaml
+
+To show the helm status:
+helm get manifest zookeeper |kubectl get  -f -
+
+to list the zookeeper helm:
+helm ls --all zookeeper
+
+to delete the zookeeper helm:
+helm delete zookeeper
+
+===================zookeeper deploy info================
+
+ZooKeeper can be accessed via port 2181 on the following DNS name from within your cluster:
+
+    zookeeper.default.svc.cluster.local
+
+To connect to your ZooKeeper server run the following commands:
+
+    export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=zookeeper,app.kubernetes.io/instance=zookeeper,app.kubernetes.io/component=zookeeper" -o jsonpath="{.items[0].metadata.name}")
+    kubectl exec -it $POD_NAME -- zkCli.sh
+
+To connect to your ZooKeeper server from outside the cluster execute the following commands:
+
+    kubectl port-forward --namespace default svc/zookeeper 2181:2181 &
+    zkCli.sh 127.0.0.1:2181
+
+
+
