@@ -18,7 +18,7 @@ for the issue of 'unable to gossip with any seeds', pls make sure the istio outb
 istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
 
 How to login cqlsh:
-kubectl exec -ti cassandra-0 -- cqlsh
+kubectl exec -ti cassandra-0 -- cqlsh -u cassandra -p cassandra
 
 create keyspace in DC1 with 2 replication:
 cqlsh> create keyspace EasyStoGu with replication ={'class' : 'NetworkTopologyStrategy', 'DC1':2};

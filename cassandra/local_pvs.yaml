@@ -12,7 +12,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /data/cass/cassandra-data-a
+    path: /home/eyaweiw/docker_volume/cassandra/cassandra-data-a
   persistentVolumeReclaimPolicy: Recycle
 ---
 apiVersion: v1
@@ -28,7 +28,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /data/cass/cassandra-data-b
+    path: /home/eyaweiw/docker_volume/cassandra/cassandra-data-b
   persistentVolumeReclaimPolicy: Recycle
 ---
 apiVersion: v1
@@ -44,5 +44,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /data/cass/cassandra-data-c
+    path: /home/eyaweiw/docker_volume/cassandra/cassandra-data-c
   persistentVolumeReclaimPolicy: Recycle
