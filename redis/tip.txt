@@ -12,6 +12,9 @@ helm install --name redis -f values.yaml ./
 
 to access redis:
 kubectl exec -it redis-node-0 /bin/bash
+redis-server help
+redis-server --version
+redis-sentinel help
 redis-cli --pass password
 keys *
 

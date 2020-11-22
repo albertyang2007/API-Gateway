@@ -1,0 +1,22 @@
+classes:
+- name: local-storage
+  storageClass:
+    reclaimPolicy: Delete # Available reclaim policies: Delete/Retain, defaults: Delete.
+    isDefaultClass: false
+  hostDir: /mnt/lpvs
+  volumeMode: Filesystem
+  #fsType: xfs
+  #namePattern: "*"
+  blockCleanerCommand:
+  - "/scripts/quick_reset.sh"
+  # blockCleanerCommand: 
+  # - "/scripts/shred.sh"
+  # - "1"
+  # or blkdiscard utility
+  # - "/scripts/blkdiscard.sh"
+
+daemonset:
+  tolerations:
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
+

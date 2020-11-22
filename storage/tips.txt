@@ -1,0 +1,13 @@
+How to use the local persistent volume in k8s.
+
+Pls read virtualBox_disk_image/tips.txt to create seperate lpvc first.
+
+To deploy local PV provisioner:
+helm -n kube-system install -f ./lpv-provisioner.yaml lpv-provisioner ./lpv-provisioner.tgz
+kubectl get pv 
+
+To apply the local storage pvc:
+kubectl apply -f local_storage.yaml
+kubectl describe pvc lpvc
+
+

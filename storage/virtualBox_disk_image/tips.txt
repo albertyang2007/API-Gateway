@@ -1,0 +1,15 @@
+This tips is for how to use the virtual box disk image for k8s Local Persistent Volume.
+
+First create a virtual disk image (vdi) and mount to host.
+I use the vdi format (actually can use vmdk for both vmware and virtualbox) and mount a 30Gi disk to k8snode.
+The vdi file path in Ubuntu host is /media/eyaweiw/sdd/virtualBoxDisk/k8snode*_vdi.vdi
+
+Then the mount point in k8snode is /dev/sdb.
+
+Using the manage-disk.sh in all k8snode to mount /dev/sdb to host and seperate 3 local persistent volume.
+The result can be found in k8snode1 /etc/fstab:
+UUID=1ee3568c-3e7d-4006-972c-6a41c2cab5c9 /mnt/1ee3568c-3e7d-4006-972c-6a41c2cab5c9 xfs defaults 0 0
+/mnt/1ee3568c-3e7d-4006-972c-6a41c2cab5c9/vol1 /mnt/lpvs/1ee3568c-3e7d-4006-972c-6a41c2cab5c9_vol1 none bind 0 0
+/mnt/1ee3568c-3e7d-4006-972c-6a41c2cab5c9/vol2 /mnt/lpvs/1ee3568c-3e7d-4006-972c-6a41c2cab5c9_vol2 none bind 0 0
+/mnt/1ee3568c-3e7d-4006-972c-6a41c2cab5c9/vol3 /mnt/lpvs/1ee3568c-3e7d-4006-972c-6a41c2cab5c9_vol3 none bind 0 0
+
