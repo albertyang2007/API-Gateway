@@ -8,7 +8,7 @@ The password to access the redis is 'password'
 
 to install redis helm :
 cd bitnami/redis
-helm install redis bitnami/redis -f ./values.yaml 
+helm install redis -f ./values.yaml .
 
 To fix the redis-sentinel config issue:
 change the redis-master-0.redis-headless.default.svc.cluster.local 
