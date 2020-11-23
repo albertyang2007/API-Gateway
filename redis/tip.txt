@@ -8,15 +8,42 @@ The password to access the redis is 'password'
 
 to install redis helm :
 cd bitnami/redis
-helm install --name redis -f values.yaml ./
+helm install redis bitnami/redis -f ./values.yaml 
 
-to access redis:
+To fix the redis-sentinel config issue:
+change the redis-master-0.redis-headless.default.svc.cluster.local 
+to         redis-node-0.redis-headless.default.svc.cluster.local
+
+kubectl edit configmap redis
+kubectl describe configmap redis
+
+Another way is to modify the configmap.yaml under templates to change it.
+
+To check the dns:
+kubectl exec -i -t dnsutils -- nslookup redis-node-0.redis-headless.default.svc.cluster.local
+
+To check the sentinel config:
 kubectl exec -it redis-node-0 /bin/bash
+
+cat redis-node-0.redis-headless.default.svc.cluster.local
+To check the sentinel monitor is correct:
+ir "/tmp"
+bind 0.0.0.0
+port 26379
+sentinel monitor mymaster redis-node-0.redis-headless.default.svc.cluster.local 6379 2
+sentinel down-after-milliseconds mymaster 60000
+sentinel failover-timeout mymaster 18000
+sentinel parallel-syncs mymaster 1I have no name!@redis-node-0:/$ exit
+
+ 
 redis-server help
 redis-server --version
 redis-sentinel help
 redis-cli --pass password
 keys *
+
+To see the replocation status:
+redis-cli -a password INFO Replication
 
 to list the redis helm:
 helm ls --all redis
