@@ -25,7 +25,13 @@ kubectl exec -i -t dnsutils -- nslookup redis-node-0.redis-headless.default.svc.
 To check the sentinel config:
 kubectl exec -it redis-node-0 /bin/bash
 
-cat redis-node-0.redis-headless.default.svc.cluster.local
+To check the sentinel group status:
+redis-cli -p 26379 -a password
+127.0.0.1:26379> SENTINEL get-master-addr-by-name mymaster
+1) "127.0.0.1"
+2) "6379"
+
+cat /opt/bitnami/redis-sentinel/etc/sentinel.conf
 To check the sentinel monitor is correct:
 ir "/tmp"
 bind 0.0.0.0
@@ -49,4 +55,4 @@ to list the redis helm:
 helm ls --all redis
 
 to delete the redis helm:
-helm del --purge redis
+helm delete redis
