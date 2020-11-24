@@ -3,12 +3,12 @@ https://github.com/bitnami/charts/tree/master/bitnami/redis/
 to git clone the bitnami from github.
 
 Here in my k8s env, using the no persistence redis. Use the sentinel for redis.
-The password to access the redis is 'password'
+The password to access the redis is 'password'  (not password is used now)
 
 
 to install redis helm :
 cd bitnami/redis
-helm install redis bitnami/redis -f ./values.yaml 
+helm install redis -f ./values.yaml .
 
 To fix the redis-sentinel config issue:
 change the redis-master-0.redis-headless.default.svc.cluster.local 
@@ -28,8 +28,12 @@ kubectl exec -it redis-node-0 /bin/bash
 To check the sentinel group status:
 redis-cli -p 26379 -a password
 127.0.0.1:26379> SENTINEL get-master-addr-by-name mymaster
-1) "127.0.0.1"
+1) "10.122.249.40"
 2) "6379"
+
+To access the redis master:
+redis-cli -p 6379 -h 10.122.249.40
+keys *
 
 cat /opt/bitnami/redis-sentinel/etc/sentinel.conf
 To check the sentinel monitor is correct:
