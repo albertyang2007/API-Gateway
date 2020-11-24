@@ -1,0 +1,4 @@
+To build a cassandra image with password authentication:
+docker build -t cassandra_authentication:3.11.9 .
+docker tag cassandra_authentication:3.11.9 eyaweiw.cn:5000/cassandra_authentication:3.11.9
+docker push eyaweiw.cn:5000/cassandra_authentication:3.11.9
