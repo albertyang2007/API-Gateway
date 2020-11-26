@@ -6,6 +6,8 @@ unzip it and move the ctl to:
 sudo istioctl /usr/local/bin
 
 I had modify the docker hub to my eyaweiw.cn:5000 for all charts configuration, pls check the yaml files under charts
+If not effect the local image, pls change the image registry by:
+kubectl edit configmap istio-sidecar-injector -n istio-system
 
 refer to tips:
 https://www.jianshu.com/p/973147d3f2b5

@@ -27,7 +27,7 @@ spec:
                 - DC1
       containers:
         - name: cassandra
-          image: eyaweiw.cn:5000/cassandra_authentication:3.11.9
+          image: eyaweiw.cn:5000/cassandra_authentication_lucene:3.11.9
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 7000
