@@ -1,4 +1,17 @@
-To build a cassandra image with password authentication:
-docker build -t cassandra_authentication:3.11.9 .
-docker tag cassandra_authentication:3.11.9 eyaweiw.cn:5000/cassandra_authentication:3.11.9
-docker push eyaweiw.cn:5000/cassandra_authentication:3.11.9
+To add user and pwd to cassandra docker container:
+https://hopding.com/cassandra-authentication-in-docker-container
+
+To build a new authentication cassandra version docker image:
+docker build -t cassandra_authentication_lucene:3.11.9 .
+
+docker tag cassandra_authentication_lucene:3.11.9 eyaweiw.cn:5000/cassandra_authentication_lucene:3.11.9
+docker push eyaweiw.cn:5000/cassandra_authentication_lucene:3.11.9
+
+To start a cassandra docker and listen in 9042:
+docker run -p 9042:9042 --name cassandra -d cassandra_authentication_lucene:3.11.9
+
+To login the container and run cql:
+docker exec -it cassandra bash
+cqlsh -u cassandra -p cassandra
+
+The user and pwd is: cassandra / cassandra
