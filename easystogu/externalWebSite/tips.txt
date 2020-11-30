@@ -1,0 +1,43 @@
+How to using the egress gateway to access the external web site within the k8s cluster.
+Refer to : https://istio.io/latest/docs/tasks/traffic-management/egress/egress-gateway/
+
+1.Apply the sleep tools, the path is:  /home/eyaweiw/istio/istio-1.7.4/samples/sleep/sleep.yaml
+kubectl apply -f samples/sleep/sleep.yaml
+
+2. check if the istio egress gateway is deploy or not:
+kubectl get pod -l istio=egressgateway -n istio-system
+
+3. apply the service Entry 
+kubectl apply -f serviceEntry.yaml
+
+4. get the sleep pod and 
+ kubectl exec "$SOURCE_POD" -c sleep -- curl -sL -o /dev/null -D - http://hq.sinajs.cn/list=sh000001 
+
+5. apply below yaml:
+
+kubectl apply -f gateWay.yaml
+kubectl apply -f destinationRule.yaml
+kubectl apply -f virtualService.yaml
+
+
+6. check it again:
+kubectl exec "$SOURCE_POD" -c sleep -- curl -sL -o /dev/null -D - http://hq.sinajs.cn/list=sh000001
+
+7. check the pod log:
+kubectl logs -l istio=egressgateway -c istio-proxy -n istio-system | tail
+
+8. using the dnsutil to check the external web site:
+kubectl exec -i -t dnsutils -- nslookup hq.sinajs.cn
+Server:         10.10.0.10
+Address:        10.10.0.10#53
+
+hq.sinajs.cn    canonical name = idc-hq-xxg6.sinajs.cn.
+Name:   idc-hq-xxg6.sinajs.cn
+Address: 111.13.134.251
+** server can't find idc-hq-xxg6.sinajs.cn: NXDOMAIN
+
+9. Clean up the egress gateway:
+$ kubectl delete gateway istio-egressgateway
+$ kubectl delete serviceentry cnn
+$ kubectl delete virtualservice direct-cnn-through-egress-gateway
+$ kubectl delete destinationrule egressgateway-for-cnn

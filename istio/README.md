@@ -17,8 +17,13 @@ https://istio.io/latest/docs/setup/getting-started/#download
 istioctl install 
 or specify the profile:
 istioctl install --set profile=demo
-or allow all outgoing traffic without deny:
+
+or allow all outgoing traffic without deny: (currently I use this command)
 istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
+
+or to manually enable the egress gateway if not active:
+istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY --set components.egressGateways.enabled=true --set components.egressGateways.name=istio-egressgateway
+
 or to control the outoging traffic with register policy:
 istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
 
