@@ -1,0 +1,16 @@
+Deploy the wiremock simulator in the k8s cluster, all the traffic will not go outside the k8s cluster.
+
+To get the loadbalance of wiremock:
+kubectl get svc | grep wiremock
+
+To get all the url mappings:
+curl -i -X GET http://192.168.56.105/__admin/mappings
+
+To delete a mapping id:
+curl X DELETE http://192.168.56.105/__admin/mappings/<id>
+
+To add api/mytest into url mappings:
+curl -X POST -H "Content-Type:application/json" --data '{"request": {"method": "GET","url": "/api/mytest"},"response": {"status": 200,"body": "More content"}}' http://192.168.56.105/__admin/mappings
+
+To test the url mapping:
+curl -i -X GET http://192.168.56.105/api/mytest 

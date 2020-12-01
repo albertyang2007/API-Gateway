@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: wiremock
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - my-ingress-istio-gateway
+  http:
+  - route:
+    - destination:
+        host: wiremock
+        port:
+          number: 8080

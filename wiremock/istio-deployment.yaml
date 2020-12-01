@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wiremock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wiremock
+  template:
+    metadata:
+      labels:
+        app: wiremock
+    spec:
+      containers:
+      - name: wiremock
+        image: eyaweiw.cn:5000/wiremock:2.27.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
