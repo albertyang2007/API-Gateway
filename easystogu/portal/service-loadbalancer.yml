@@ -7,12 +7,9 @@ metadata:
     app: easystogu-portal
 spec:
   type: LoadBalancer
-  externalIPs:
-  - 192.168.56.190
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30004
       protocol: TCP
   selector:
     app: easystogu-portal

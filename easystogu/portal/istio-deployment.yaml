@@ -20,6 +20,9 @@ spec:
       - name: easystogu-portal
         image: eyaweiw.cn:5000/easystogu-portal:2.0.0-snapshot 
         imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "1"
         ports:
         - name: http
           containerPort: 8080

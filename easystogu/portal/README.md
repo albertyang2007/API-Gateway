@@ -19,8 +19,10 @@ easystogu-cluster                      ClusterIP      10.10.58.134    <none>    
 easystogu-loadbalancer                 LoadBalancer   10.10.131.108   192.168.56.190   8080:30004/TCP               5m1s
 easystogu-nodeport                     NodePort       10.10.188.82    <none>           8080:30003/TCP               5m8s
 
-using the nodeport ip to access the easystogu portal home endpoints::
-curl -i -X GET http://10.10.139.124:8080/portal/home/
+Using loadbalancer to access portal:
+curl -i -X GET http://loadbalance_ip:8080/portal/home/
 
-or using the localhost with export 30003 in k8smaster:
-curl -i -X GET http://127.0.0.1:30003/portal/home/
+curl -i -X GET http://192.168.56.103:8080/portal/home/FastDailyOverAllRunner
+
+To check the log:
+ke easystogu-portal-v2-8d8b68bc8-fn6qr -- tail -f /serverlog/server.log
