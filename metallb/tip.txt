@@ -1,4 +1,8 @@
-to git clone the bitnami from github.
+Using helm to install:
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install metallb bitnami/metallb --values values.yaml
+
+or to git clone the bitnami from github.
 
 to install metallb helm :
 cd bitnami/metallb

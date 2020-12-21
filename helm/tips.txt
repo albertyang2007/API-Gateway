@@ -1,0 +1,11 @@
+refer to https://helm.sh/docs/intro/install/
+download helm 3.4
+wget https://get.helm.sh/helm-v3.4.2-linux-amd64.tar.gz
+
+tar -zxvf helm-v3.4.2-linux-amd64.tar.gz
+mv linux-amd64/helm /usr/local/bin/helm
+
+helm repo add stable https://charts.helm.sh/stable
+helm search repo stable
+
+
