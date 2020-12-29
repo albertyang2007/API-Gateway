@@ -1,3 +1,4 @@
+Not suggest to use this share found, its performance is low.
 how to install the virtual addons to support file shared in virtual box host:
 
 to share the file to virtual host.
