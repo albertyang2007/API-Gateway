@@ -1,0 +1,130 @@
+准备：
+主机名字 Host-Only地址 Internal Network地址
+
+k8smaster 192.168.56.110 10.0.20.110
+
+k8snode1 192.168.56.111 10.0.20.111
+
+
+步骤一：添加主机名字
+
+# hostnamectl set-hostname master-node
+# cat <<EOF>> /etc/hosts
+10.0.20.110 192.168.56.110 k8smaster
+10.0.20.111 192.168.56.111 k8snode1
+EOF
+
+
+步骤二：设置selinux和防火墙
+# setenforce 0
+# sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+# modprobe br_netfilter
+# echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+# systemctl disable firewalld
+# swapoff -a
+# vi /etc/fstab
+  comment the swap line
+# reboot
+
+
+步骤三：设置docker 和 k8s repo来源
+#curl https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+
+# cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl= https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+EOF
+
+
+步骤四：安装docker和kube软件
+
+# yum install kubeadm docker-ce -y --nobest
+
+注意docker需用使用docker-ce版本
+
+#vi /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "registry-mirrors": ["https://jpr9i5u9.mirror.aliyuncs.com"],
+  "insecure-registries":["eyaweiw.cn:5000"]
+}
+
+# systemctl enable kubelet
+# systemctl start kubelet
+# systemctl enable docker
+# systemctl start docker
+
+
+步骤五：下载docker镜像(master和node节点都要安装)
+
+由于国内访问k8s.gcr.io的地址非常慢，所以需要手动下载docker的image，具体什么版本1.需要跟k8s的版本一致；2.需用从https://hub.docker.com/u/library查询。笔者整理好下面的命令：
+https://hub.docker.com
+
+docker pull ggangelo/kube-apiserver:v1.19.2
+docker pull ggangelo/kube-controller-manager:v1.19.2
+docker pull ggangelo/kube-scheduler:v1.19.2
+docker pull ggangelo/kube-proxy:v1.19.2
+docker pull kubesphere/pause:3.2
+docker pull kubesphere/flannel:v0.12.0
+docker pull gotok8s/coredns:1.7.0
+docker pull gotok8s/etcd:3.4.13-0
+
+
+下载完毕之后需要修改image的tag，让k8s认为本地的tag就是他需要安装的版本：
+docker tag ggangelo/kube-proxy:v1.19.2 k8s.gcr.io/kube-proxy:v1.19.2
+docker tag ggangelo/kube-apiserver:v1.19.2 k8s.gcr.io/kube-apiserver:v1.19.2
+docker tag ggangelo/kube-controller-manager:v1.19.2 k8s.gcr.io/kube-controller-manager:v1.19.2
+docker tag ggangelo/kube-scheduler:v1.19.2 k8s.gcr.io/kube-scheduler:v1.19.2
+docker tag docker.io/kubesphere/pause:3.2 k8s.gcr.io/pause:3.2
+docker tag docker.io/kubesphere/flannel:v0.12.0 k8s.gcr.io/flannel:v0.12.0
+docker tag gotok8s/coredns:1.7.0 k8s.gcr.io/coredns:1.7.0
+docker tag gotok8s/etcd:3.4.13-0 k8s.gcr.io/etcd:3.4.13-0
+
+
+
+步骤六：初始化kube
+
+kubeadm init --kubernetes-version=1.20.0 --apiserver-advertise-address=192.168.56.200 --service-cidr=10.10.0.0/16 --pod-network-cidr=10.122.0.0/16 --image-repository=eyaweiw.cn:5000
+
+这里需要指定Internal Network IP地址，否则会使用默认的NAT的地址。
+
+
+su切换到root用户(其实我全程都是用root操作)，并而执行：
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You can now join any number of control-plane nodes by copying certificate authorities
+and service account keys on each node and then running the following as root:
+
+  kubeadm join 192.168.56.200:6443 --token ekb0c1.sxrpowugwth3p26x \
+    --discovery-token-ca-cert-hash sha256:4209727f3dfe014f8555d3970ded7d3307aa21cfb79fa793bbabc4326ed2acf5 \
+    --control-plane
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.56.200:6443 --token t1tn45.p4vk4es0qle3zx13     --discovery-token-ca-cert-hash sha256:75ee8cf1311b472400eb2822f88664315817559b34d4119d207622135a40818c
+ 
+now k8smaster is not ready due to network config    
+#kubectl apply -f /home/eyaweiw/github/K8S_Deploy_Example/k8s_network/calico/calico_ok_in_used.yaml
+
+then install the k8s dnsutil to check the dns:
+kubectl apply -f /home/eyaweiw/github/K8S_Deploy_Example/k8s_network/dnsutils.yaml 
+
+now k8smaster is ready:
+
+then on k8snode, join!
+
+
+

@@ -1,3 +1,4 @@
+Suggest to use this way to create storage for k8s cluster.
 This tips is for how to use the virtual box disk image for k8s Local Persistent Volume.
 
 First create a virtual disk image (vdi) and mount to host.

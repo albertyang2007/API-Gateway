@@ -3,6 +3,9 @@ https://blog.csdn.net/cuxiong8996/article/details/107155812
 https://github.com/ideagw/multi-dc-c7a-k8s
 
 This only use DC1, 3 cluster cassandra nodes
+kubectl label nodes k8snode1 dc=DC1
+kubectl label nodes k8snode2 dc=DC1
+kubectl label nodes k8snode3 dc=DC1
 
 To build a cassandra image with password authentication:
 refer to: https://hopding.com/cassandra-authentication-in-docker-container

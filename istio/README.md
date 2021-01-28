@@ -1,3 +1,13 @@
+Refer to https://istio.io/latest/docs/setup/getting-started/
+Latest tips:I just use below scripts to install the istio in my 1.20.0 k8s
+====start
+wget https://raw.githubusercontent.com/istio/istio/master/release/downloadIstioCandidate.sh
+./downloadIstioCandidate.sh | ISTIO_VERSION=1.8.1 TARGET_ARCH=x86_64 sh -
+cd istio-1.8.1
+cp ./bin/istioctl /usr/bin
+istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
+====end
+
 How to install istio:
 
 go to https://github.com/istio/istio/releases and download the istio 1.7.4 version

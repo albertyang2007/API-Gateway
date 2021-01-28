@@ -1,7 +1,10 @@
 The k8s network plugin.
 
-apply the flannel plugin when install the k8s:
-kubectl apply -f flannel/kube-flannel.yml
+apply the calico plugin when install the k8s:
+kubectl apply -f calico/calico_ok_in_used.yaml
+
+#apply the flannel plugin when install the k8s:
+#kubectl apply -f flannel/kube-flannel.yml
 
 to test the k8s dns: 
 (refer to https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)
