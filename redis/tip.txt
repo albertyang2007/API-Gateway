@@ -9,6 +9,23 @@ The password to access the redis is 'password'  (not password is used now)
 to install redis helm :
 cd bitnami/redis
 helm install redis -f ./values.yaml .
+==============
+To connect to your Redis server:
+
+1. Run a Redis pod that you can use as a client:
+   kubectl run --namespace default redis-client --rm --tty -i --restart='Never' \
+   
+   --image eyaweiw.cn:5000/bitnami/redis:6.0.9-debian-10-r0 -- bash
+
+2. Connect using the Redis CLI:
+   redis-cli -h redis -p 6379 # Read only operations
+   redis-cli -h redis -p 26379 # Sentinel access
+
+To connect to your database from outside the cluster execute the following commands:
+
+    kubectl port-forward --namespace default svc/redis-master 6379:6379 &
+    redis-cli -h 127.0.0.1 -p 6379
+===============
 
 To fix the redis-sentinel config issue:
 change the redis-master-0.redis-headless.default.svc.cluster.local 
@@ -35,7 +52,7 @@ To access the redis master:
 redis-cli -p 6379 -h 10.122.249.40
 keys *
 
-cat /opt/bitnami/redis-sentinel/etc/sentinel.conf
+cat /opt/bitnami/redis/mounted-etc/etc/sentinel.conf
 To check the sentinel monitor is correct:
 ir "/tmp"
 bind 0.0.0.0

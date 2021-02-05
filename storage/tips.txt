@@ -10,4 +10,41 @@ To apply the local storage pvc:
 kubectl apply -f local_storage.yaml
 kubectl describe pvc lpvc
 
+[root@k8smaster storage]# kubectl get pv
+NAME                 CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                                STORAGECLASS    REASON   AGE
+cassandra-data-a     30Gi       RWO            Recycle          Bound       default/cassandra-data-cassandra-0                            20d
+cassandra-data-b     30Gi       RWO            Recycle          Bound       default/cassandra-data-cassandra-1                            20d
+cassandra-data-c     30Gi       RWO            Recycle          Bound       default/cassandra-data-cassandra-2                            20d
+local-pv-40be7f53    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-65b5358d    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-82ef9903    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-95adda88    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-a737e555    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-b5b9c8ae    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-be1dbab8    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-d4642518    59Gi       RWO            Delete           Available                                        local-storage            29m
+local-pv-de534406    59Gi       RWO            Delete           Available                                        local-storage            29m
+postgres-pv-volume   20Gi       RWX            Retain           Bound       default/postgres-pv-claim            manual                   18d
+[root@k8smaster storage]# kubectl get pvc
+NAME                         STATUS    VOLUME               CAPACITY   ACCESS MODES   STORAGECLASS    AGE
+cassandra-data-cassandra-0   Bound     cassandra-data-a     30Gi       RWO                            20d
+cassandra-data-cassandra-1   Bound     cassandra-data-b     30Gi       RWO                            20d
+cassandra-data-cassandra-2   Bound     cassandra-data-c     30Gi       RWO                            20d
+lpvc                         Pending                                                  local-storage   30m
+postgres-pv-claim            Bound     postgres-pv-volume   20Gi       RWX            manual          18d
+
+
+=============umount and delete the pv and pvc:=========
+on k8smaster:
+helm uninstall lpv-provisioner -n kube-system
+1. delete pod that use the local storage
+2. delete pvc
+3. delete pv (--force)
+
+on k8snodes:
+4. mount -l |grep lpvs
+5. umount /mnt/lpvs/xxx
+6. umount /mnt/$UUID
+7. delete the mount from /etc/fstab
+
 

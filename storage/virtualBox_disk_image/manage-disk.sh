@@ -14,12 +14,12 @@ sudo mkdir /mnt/$DISK_UUID
 sudo mount /dev/sdb /mnt/$DISK_UUID
 echo UUID=`sudo blkid -s UUID -o value /dev/sdb` /mnt/$DISK_UUID xfs defaults 0 0 | sudo tee -a /etc/fstab
 
-for i in $(seq 1 3); do
+for i in $(seq 1 9); do
   sudo mkdir -p /mnt/${DISK_UUID}/vol${i} /mnt/lpvs/${DISK_UUID}_vol${i}
   sudo mount --bind /mnt/${DISK_UUID}/vol${i} /mnt/lpvs/${DISK_UUID}_vol${i}
 done
 
-for i in $(seq 1 3); do
+for i in $(seq 1 9); do
   echo /mnt/${DISK_UUID}/vol${i} /mnt/lpvs/${DISK_UUID}_vol${i} none bind 0 0 | sudo tee -a /etc/fstab
 done
 

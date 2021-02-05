@@ -3,9 +3,32 @@ Latest tips:I just use below scripts to install the istio in my 1.20.0 k8s
 ====start
 wget https://raw.githubusercontent.com/istio/istio/master/release/downloadIstioCandidate.sh
 ./downloadIstioCandidate.sh | ISTIO_VERSION=1.8.1 TARGET_ARCH=x86_64 sh -
+
+or:
+wget https://github.com/istio/istio/releases/download/1.8.1/istio-1.8.1-linux-amd64.tar.gz
+
 cd istio-1.8.1
 cp ./bin/istioctl /usr/bin
 istioctl install --set profile=demo --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
+====end
+
+to install addons install the Kiali dashboard, along with Prometheus, Grafana, and Jaeger:
+====start
+cd /home/eyaweiw/github/K8S_Deploy_Example/istio
+kubectl create namespace istio-system
+kubectl apply -f samples/addons
+
+access kiali:
+istioctl dashboard kiali
+
+access prometheus:
+istioctl dashboard prometheus
+
+access grafana:
+istioctl dashboard grafana
+http://localhost:3000/dashboard/db/istio-mesh-dashboard
+http://localhost:3000/dashboard/db/istio-workload-dashboard
+
 ====end
 
 How to install istio:

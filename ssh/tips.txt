@@ -1,0 +1,10 @@
+ssh without password:
+
+in k8smaster:
+ssh-keygen
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub k8snode1
+ssh-copy-id -i ~/.ssh/id_rsa.pub k8snode2
+ssh-copy-id -i ~/.ssh/id_rsa.pub k8snode3
+
+then you can login any node without password
