@@ -1,0 +1,15 @@
+Ubuntu20.04 install docker registry:
+
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+apt install docker-ce
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+apt install docker-ce
+systemctl status docker
+systemctl enable docker
+docker pull registry
+
+copy your old registry files and extract to /home/eyaweiw/docker_volumn
+
+docker run -d -p 5000:5000 --restart=always --name registry -v /home/eyaweiw/docker_volumn/registry:/var/lib/registry registry:latest
+

@@ -1,12 +1,13 @@
 Using helm to install:
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install metallb bitnami/metallb --values values.yaml
+helm install metallb bitnami/metallb -n istio-system
 
 or to git clone the bitnami from github.
 
 to install metallb helm :
 cd bitnami/metallb
-helm install metallb bitnami/metallb --values values.yaml
+modify the IP range assign to the load balance in values.yaml
+helm install metallb -n istio-system --values values.yaml .
 
 To show the helm status:
 helm get manifest metallb |kubectl get  -f -

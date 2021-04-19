@@ -33,6 +33,13 @@ cassandra-data-cassandra-2   Bound     cassandra-data-c     30Gi       RWO      
 lpvc                         Pending                                                  local-storage   30m
 postgres-pv-claim            Bound     postgres-pv-volume   20Gi       RWX            manual          18d
 
+====set the local-storage as the default k8s storage class===============
+kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+storageclass.storage.k8s.io/local-storage patched
+[root@master charts]# kubectl get storageclass
+NAME                      PROVISIONER                    RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+local-storage (default)   kubernetes.io/no-provisioner   Delete          WaitForFirstConsumer   false                  101m
+
 
 =============umount and delete the pv and pvc:=========
 on k8smaster:
