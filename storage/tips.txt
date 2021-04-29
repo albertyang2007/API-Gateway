@@ -4,6 +4,12 @@ Pls read virtualBox_disk_image/tips.txt to create seperate lpvc first.
 
 To deploy local PV provisioner:
 helm -n kube-system install -f ./lpv-provisioner.yaml lpv-provisioner ./lpv-provisioner.tgz
+
+set the default storageclass for k8s:
+kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+kubectl get storageclass
+
+
 kubectl get pv 
 
 To apply the local storage pvc:

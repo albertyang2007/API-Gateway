@@ -108,7 +108,7 @@ docker push eyaweiw.cn:5000/etcd:3.4.13-0
 步骤六：初始化kube
 run reset first if any previous k8s version is installed.
 kubeadm reset
-kubeadm init --kubernetes-version=1.19.0 --apiserver-advertise-address=192.168.8.120 --service-cidr=10.10.0.0/16 --pod-network-cidr=10.122.0.0/16 --image-repository=eyaweiw.cn:5000
+kubeadm init --kubernetes-version=1.19.0 --apiserver-advertise-address=192.168.8.210 --service-cidr=10.10.0.0/16 --pod-network-cidr=10.122.0.0/16 --image-repository=eyaweiw.cn:5000
 
 这里需要指定Internal Network IP地址，否则会使用默认的NAT的地址。
 
@@ -129,9 +129,9 @@ You can now join any number of control-plane nodes by copying certificate author
 and service account keys on each node and then running the following as root:
 
 for master:
-kubeadm join 192.168.8.120:6443 --token ll1yi6.bjd9p5eyzv7av4rt \
-    --discovery-token-ca-cert-hash sha256:db284ea9e7d18d28ecaddcd53f6ea5ac70171c73edbdb3bf8c4f1e228e3664b0
-
+kubeadm join 192.168.8.210:6443 --token tbdaor.rxg61v7chz4f8816 \
+    --discovery-token-ca-cert-hash sha256:d4d48de1c81a4e1836dfd97c2f94f101593959f1f54db300e8caf92e480e1d7c
+	
 for master2:
 
 
@@ -141,6 +141,10 @@ now k8smaster is not ready due to network config
 
 then install the k8s dnsutil to check the dns:
 kubectl apply -f /home/eyaweiw/github/K8S_Deploy_Example/k8s_network/dnsutils.yaml 
+
+simple command to check the dns:
+kubectl exec -i -t dnsutils -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- cat /etc/resolv.conf
 
 set the default storageclass for k8s:
 kubectl patch storageclass local-storage -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
